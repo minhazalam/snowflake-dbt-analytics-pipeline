@@ -3,3 +3,15 @@ target/
 dbt_packages/
 logs/
 profiles.yml
+venv/
+__pycache__/
+*.pyc
+.DS_Store
+.idea/
+.vscode/
+.env
+*.sqlite
+*.db
+.mypy_cache/
+.pytest_cache/
+htmlcov/
