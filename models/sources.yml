@@ -5,10 +5,13 @@ sources:
     schema: raw
     tables:
       - name: listings
-        identifiers: raw_listings
+        identifier: raw_listings
+      - name: hosts
+        identifier: raw_hosts
 
       - name: reviews
-        identifiers: raw_reviews
-
-      - name: hosts
-        identifiers: raw_hosts
+        identifier: raw_reviews
+        loaded_at_field: date
+        freshness:
+          warn_after: {count: 1, period: hour}
+          error_after: {count: 24, period: hour}
