@@ -9,7 +9,7 @@ with src_hosts as (
 select
     host_id,
     nvl(host_name, 'Anonymous') as host_name,
-    is_superhost,
+    iff(is_superhost='t', true, false) as is_superhost,
     created_at,
     updated_at
 from
