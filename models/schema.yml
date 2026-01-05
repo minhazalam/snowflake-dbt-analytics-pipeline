@@ -1,5 +1,9 @@
 models:
   - name: dim_listings_cleansed
+    data_tests:
+      - minimum_row_count:
+          arguments:
+            min_rows: 1000 # 00000000 : test failure
     columns:
       - name: listing_id
         data_tests:
