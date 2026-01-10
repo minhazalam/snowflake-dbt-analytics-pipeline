@@ -35,6 +35,8 @@ on-run-start:
       run_timestamp timestamp)"
 models:
   airbnb:
+    +grants:
+      select: ["transform", "reporter"]
     +post-hook:
       - "insert into {{target.schema}}.audit_log values('{{this}}',current_timestamp())"
     +materialized: view
