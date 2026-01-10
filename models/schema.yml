@@ -31,17 +31,23 @@ models:
           - positive_values
 
   - name: dim_hosts_cleansed
+    description: '{{ doc("dim_hosts_cleansed") }}'
     config:
       contract:
         enforced: true
     columns:
       - name: host_id
+        description: "Unique identifier for each host."
         data_type: integer
       - name: host_name
+        description: "Name of the host."
         data_type: string
       - name: is_superhost
+        description: "Indicates if the host is a superhost."
         data_type: string
       - name: created_at
+        description: "Record creation timestamp."
         data_type: timestamp
       - name: updated_at
+        description: "Record update timestamp."
         data_type: timestamp
