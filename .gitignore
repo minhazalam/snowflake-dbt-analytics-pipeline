@@ -16,3 +16,13 @@ __pycache__/
 .pytest_cache/
 htmlcov/
 .user.yml
+dbt_internal_packages/
+target/
+dbt_modules/
+logs/
+.env/
+profiles.yml
+package-lock.yml
+dbt_internal_packages/
+manual_fixes/
+AGENTS.md
