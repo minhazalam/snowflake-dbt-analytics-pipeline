@@ -1,5 +1,6 @@
 models:
   - name: dim_listings_cleansed
+    description: '{{doc("dim_listings_cleansed")}}'
     data_tests:
       - minimum_row_count:
           arguments:
@@ -7,10 +8,12 @@ models:
           # severity: error
     columns:
       - name: listing_id
+        description: "Unique identifier for each listing"
         data_tests:
           - unique
           - not_null
       - name: host_id
+        description: "Foreign key referencing the host of the listing"
         data_tests:
           - not_null
           - relationships:
