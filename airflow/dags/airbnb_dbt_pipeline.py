@@ -2,11 +2,14 @@ from airflow import DAG
 from airflow.operators.bash import BashOperator
 from datetime import datetime
 
+from alerts.slack import notify_slack
+
 with DAG(
     dag_id="airbnb_dbt_pipeline",
     start_date=datetime(2024, 1, 1),
     schedule="@daily",
     catchup=False,
+    on_failure_callback=notify_slack,
 ) as dag:
 
     dbt_run = BashOperator(
