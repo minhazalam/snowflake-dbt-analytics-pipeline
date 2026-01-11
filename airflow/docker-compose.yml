@@ -1,0 +1,57 @@
+services:
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: airflow
+      POSTGRES_PASSWORD: airflow
+      POSTGRES_DB: airflow
+    volumes:
+      - postgres-db:/var/lib/postgresql/data
+
+  airflow-webserver:
+    build: .
+    ports:
+      - "8080:8080"
+    env_file:
+      - .env
+    environment:
+      AIRFLOW__CORE__EXECUTOR: LocalExecutor
+      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres/airflow
+      AIRFLOW__CORE__LOAD_EXAMPLES: "false"
+      DBT_PROFILES_DIR: /opt/airflow/project
+      # SNOWFLAKE_ACCOUNT: lcmrzfu-at74686
+      # SNOWFLAKE_USER: minhazalam
+      # SNOWFLAKE_PASSWORD: Iabn7018589823
+      # SNOWFLAKE_ROLE: TRANSFORM
+      # SNOWFLAKE_DATABASE: AIRBNB
+      # SNOWFLAKE_SCHEMA: DEV
+      # SNOWFLAKE_WAREHOUSE: COMPUTE_WH
+    volumes:
+      - ./dags:/opt/airflow/dags
+      - ./logs:/opt/airflow/logs
+      - ./plugins:/opt/airflow/plugins
+      - ..:/opt/airflow/project
+    depends_on:
+      - postgres
+    command: webserver
+
+  airflow-scheduler:
+    build: .
+    env_file:
+      - .env
+    environment:
+      AIRFLOW__CORE__EXECUTOR: LocalExecutor
+      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres/airflow
+      DBT_PROFILES_DIR: /opt/airflow/project
+
+    volumes:
+      - ./dags:/opt/airflow/dags
+      - ./logs:/opt/airflow/logs
+      - ./plugins:/opt/airflow/plugins
+      - ..:/opt/airflow/project
+    depends_on:
+      - postgres
+    command: scheduler
+
+volumes:
+  postgres-db:
