@@ -95,6 +95,7 @@ dbt docs serve
 - Follow the existing code organization and naming conventions.
 - Keep tests up-to-date for any schema or logic changes.
 - Open a PR with a clear description of the change and any required run steps.
+- Set up the commit-message hook once with `git config --local core.hooksPath .githooks`.
 
 ## Troubleshooting
 

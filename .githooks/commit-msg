@@ -1,0 +1,16 @@
+#!/bin/sh
+
+message_file=$1
+subject=$(sed -n '1p' "$message_file")
+pattern='^de\((python|sql|dsa|pyspark|kafka|databricks|system-design)\): \[(prep|project)\] .+$'
+
+if printf '%s\n' "$subject" | grep -Eq "$pattern"; then
+    exit 0
+fi
+
+cat >&2 <<'EOF'
+Invalid commit subject. Use:
+  de(<topic>): [<prep|project>] <description>
+Topics: python, sql, dsa, pyspark, kafka, databricks, system-design
+EOF
+exit 1
